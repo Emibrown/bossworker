@@ -1,0 +1,35 @@
+<!-- Footer
+================================================== -->
+<div class="margin-top-15"></div>
+
+
+<!-- Back To Top Button -->
+<div id="backtotop"><a href="#"></a></div>
+
+</div>
+<!-- Wrapper / End -->
+<% if (currentadmin) { %>
+  <script type="text/ng-template" id="removepost">
+    <h3>{{title}}</h3>
+    <p>Deleting this post you will lost all data relateted to it.</p>
+    <p>Are you sure you want to remove this post?</p>
+    <a href="" ng-click="removepost()" ng-cloak  class="button ng-cloak">{{remove}}</a>
+</script> 
+<% } %>
+
+
+<!-- Scripts
+================================================== -->
+<script src="/scripts/jquery-2.1.3.min.js"></script>
+<script src="/angular/bossworkerPlugin.min.js" defer></script>
+
+<!-- angular  -->
+<script src="/lib/angular.min.js"></script>
+<script src="/lib/app.js"></script>
+<script src="/angular/bossworkerFile.min.js" defer></script>
+
+
+<script src="/lib/admin/login.controller.js"></script>
+<script src="/lib/admin/manageBlogPost.controller.js"></script>
+</body>
+</html>

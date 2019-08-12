@@ -1,0 +1,116 @@
+<% include header %>
+  <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2><%= post.subject %></h2>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container" ng-controller="singlePostCtrl">
+
+  <!-- Blog Posts -->
+  <div class="eleven columns">
+    <div class="padding-right">
+
+      <!-- Post -->
+      <div class="post-container">
+        <div class="post-img"><a href=""><img src="/upload/file/<%= post.cover %>" alt=""></a></div>
+        <div class="post-content">
+          <div class="meta-tags">
+            <span><%= moment(post.created).format('MMMM Do YYYY') %></span>
+            <span><a href="#">{{comments.length}} Comments</a></span>
+          </div>
+          <div class="clearfix"></div>
+          <div class="margin-bottom-25"></div>
+
+          <div class="list-1 postv">
+             <%- post.body %>
+          </div>
+         
+
+        </div>
+
+          <a href="/manage/admin/edit-blog-post/<%= post.postId %>" class="button">Edit</a>
+          <a href="" ng-click="removepost('<%= post._id %>','<%= post.subject %>')" class="button">Delete</a>
+
+      </div>
+
+      <!-- Comments -->
+      <section class="comments" ng-init = "comments = <%= JSON.stringify(post.comments) %>;">
+      <h4>Comments <span class="comments-amount">{{comments.length}}</span></h4>
+
+        <ul>
+
+          <li ng-repeat ="comm in comments track by $index">
+          
+            <div class="comment-content"><div class="arrow-comment"></div>
+              <div class="comment-by">{{comm.name}}<span class="date">{{comm.created  | date:'medium'}}</span>
+              </div>
+              <p>{{comm.body}}</p>
+            </div>
+          </li>
+
+         </ul>
+      </section>
+
+
+      <div class="clearfix"></div>
+      <div class="margin-top-35"></div>
+
+
+      <!-- Add Comment -->
+      <h4 class="comment">Add Comment</h4>
+      <div class="margin-top-20"></div>
+      
+      <!-- Add Comment Form -->
+      <form  class="add-comment">
+
+          <div>
+            <label>Name: <span>*</span></label>
+            <input type="text" ng-model="comment.name" required />
+          </div>
+
+          <div>
+            <label>Comment: <span>*</span></label>
+            <textarea cols="40" rows="3" ng-model="comment.body" required></textarea>
+          </div>
+
+
+        <button class="send" ng-click="click('<%= post.postId %>')">{{btn}}</button>
+        <div class="clearfix"></div>
+        <div class="margin-bottom-20"></div>
+      </form>
+
+    </div>
+  </div>
+  <!-- Blog Posts / End -->
+
+
+  <!-- Widgets -->
+  <div class="five columns blog">
+
+    <!-- Search -->
+    <div class="widget">
+      <h4>Search</h4>
+      <div class="widget-box search">
+        <div class="input"><input class="search-field" type="text" placeholder="To search type and hit enter" value=""/></div>
+      </div>
+    </div>
+    
+    <div class="clearfix"></div>
+    <div class="margin-bottom-40"></div>
+
+  </div>
+  <!-- Widgets / End -->
+
+
+</div>
+<% include footer %>

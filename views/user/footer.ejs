@@ -1,0 +1,141 @@
+<!-- Footer
+================================================== -->
+<div class="margin-top-15"></div>
+
+<div id="footer">
+  <!-- Main -->
+  <div class="container">
+
+    <div class="seven columns">
+      <h4>About Us</h4>
+      <p>Bossworker is a fast growing job match and freelancing network aimed at connecting job-seekers, employers and freelancers. Are you a job-seeker looking for a new job, an employer looking to hire workforce or a freelancer waiting to be hired? If yes, then this platform is all you need.</p>
+      <a href="#" class="button">Learn More</a>
+    </div>
+
+    <div class="three columns">
+      <h4>Browse</h4>
+      <ul class="footer-links padding">
+        <li><a href="">Contact Us</a></li>
+        <li><a href="/user/jobs">Find Jobs</a></li>
+        <li><a href="/user/Freelancers">Freelancers Hub</a></li>
+        <li><a href="/user/blog">Our Blog</a></li>
+      </ul>
+    </div>
+
+     <div class="three columns">
+       <h4>Follow Us</h4>
+        <ul class="social-icons padding">
+          <li><a class="facebook" href="https://web.facebook.com/Bossworker" target="_blank"><i class="icon-facebook"></i></a></li>
+          <li><a class="twitter" href="https://twitter.com/bossworker" target="_blank"><i class="icon-twitter"></i></a></li>
+          <li><a class="gplus" href="https://plus.google.com/101387428557954608427" target="_blank"><i class="icon-gplus"></i></a></li>
+          <li><a class="linkedin" href="#"><i class="icon-linkedin"></i></a></li>
+        </ul>
+    </div>
+    
+  </div>
+
+  <!-- Bottom -->
+  <div class="container">
+    <div class="footer-bottom">
+      <div class="sixteen columns">
+        <div class="copyrights">©  Copyright 2017 by <a href="#">Bossworker</a>. All Rights Reserved.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Back To Top Button -->
+<div id="backtotop"><a href="#"></a></div>
+
+</div>
+<!-- Wrapper / End -->
+<% if (currentUser) { %>
+<script type="text/ng-template" id="postjob">
+    <h2><a href="">Post This Job</a></h2>
+    <form ng-init="check(<%= currentUser.credit %>)">
+      <div class="form">
+        <h5>Duration <span>(Week)</span></h5>
+        <input class="search-field" min='1' ng-click="check(<%= currentUser.credit %>)" type="number" ng-model="price"/>
+      </div>
+      <h6>Current Credit: <%= currentUser.credit %>.00 NGN</h6>
+      <h6>Post Price: {{price*100 || 0}}.00 NGN</h6>
+      <br>
+      <h6><strong style="color: #FFA726;">{{message}}</strong></h6>
+      <button class="send" ng-click="postjob(<%= currentUser.credit %>)">{{button}}</button>
+    </form>
+</script> 
+
+<script type="text/ng-template" id="getGradit">
+    <h2><a href="">Get Credit</a></h2>
+    <form name="payForm" ng-submit="pay(payForm.$valid)" required novalidate>
+      <div class="form">
+        <h5>Amount <span>(NGN)</span></h5>
+        <input class="search-field" only-num min='100' name="value" ng-click="clear()" type="number" ng-model="value" required />
+      </div>
+      <br>
+      <button type="submit" ng-cloak class="error ng-cloak button">{{button}}</button>
+      <span ng-cloak class="error ng-cloak" ng-show="formError">{{formError}}</span>
+    </form>
+</script> 
+
+<script type="text/ng-template" id="postresume">
+    <h2><a href="">Post This Resume</a></h2>
+    <form ng-init="check(<%= currentUser.credit %>)">
+      <div class="form">
+        <h5>Duration <span>(Week)</span></h5>
+        <input class="search-field" min='1' ng-click="check(<%= currentUser.credit %>)" type="number" ng-model="price"/>
+      </div>
+      <h6>Current Credit: <%= currentUser.credit %>.00 NGN</h6>
+      <h6>Post Price: {{price*100 || 0}}.00 NGN</h6>
+      <br>
+      <h6>{{message}}</h6>
+      <button class="send" ng-click="postresume(<%= currentUser.credit %>)">{{button}}</button>
+    </form>
+</script> 
+<% } %>
+<script type="text/ng-template" id="forgetPassword">
+    <h2><a href="">Forgot Password</a></h2>
+    <form name="forgetForm" ng-submit="reset(forgetForm.$valid)" equired novalidate>
+      <div class="form">
+        <h5>Email Address</h5>
+         <input type="email" name="email" ng-model="credentials.email" ng-click="clear()" required >
+        <span  ng-cloak class="ng-cloak error" ng-if="submitted && forgetForm.email.$invalid">Enter a valid email</span>
+      </div>
+      
+      <br>
+
+      <span ng-cloak class="error ng-cloak" ng-show="formError">{{formError}}</span>
+     
+      <button type="submit" class="send">{{button}}</button>
+      <br>
+      <h5 ng-cloak class="success ng-cloak">
+         {{formSuccess}}</span>
+      </h5>
+    </form>
+</script> 
+<script type="text/ng-template" id="successPop">
+    <h3><a href="">Hi {{fullname}}</a></h3>
+    <p>You have successfully signup on Bossworker. take some time to <a href="">learn how it works</a>. </p>
+    <a href="/user/login" class="button">Continue to sign in</a>
+</script> 
+
+
+
+<!-- Scripts
+================================================== -->
+<script src="/scripts/jquery-2.1.3.min.js"></script>
+
+<!-- angular  -->
+<script src="/lib/angular.min.js"></script>
+<script src="/angular/bossworker.min.js" defer></script>
+
+<script src="/angular/bossworkerFile.min.js" defer></script>
+
+
+<script src="/angular/bossworkerPlugin.min.js" defer></script>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</body>
+</html>

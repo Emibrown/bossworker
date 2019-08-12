@@ -1,0 +1,95 @@
+<% include header %>
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Manage Applications</h2>
+      <nav id="breadcrumbs">
+        <ul class="padding">
+          <li>You are here:</li>
+          <li><a href="#">Home</a></li>
+          <li>Job Dashboard</li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+  
+  <!-- Table -->
+  <div class="sixteen columns">
+
+    <p class="margin-bottom-25" style="float: left;">The job applications for <strong><a href=""><%= job.jobTitle %></a></strong> are listed below.</p>
+   
+  
+
+  </div>
+
+
+  <!-- Applications -->
+  <div class="sixteen columns">
+<%  for (var i = 0; i < job.applicant.length; i++) { %>
+    <!-- Application #1 -->
+    <div class="application">
+      <div class="app-content">
+        
+        <!-- Name / Avatar -->
+        <div class="info">
+            <img src="/upload/profilePhoto/<%= job.applicant[i].user.photo %>" alt="photo">
+          <span><%= job.applicant[i].user.firstname %> <%= job.applicant[i].user.lastname %></span>
+          <ul class="padding">
+          <% if(job.applicant[i].cv){ %>
+            <li><a href="/upload/cv-upload/<%= job.applicant[i].cv %>" download ><i class="fa fa-file-text"></i> Download CV</a></li>
+          <%}%>
+            <li><a href="#"><i class="fa fa-phone"></i> <%= job.applicant[i].user.phoneNumber %> </a></li>
+          </ul>
+        </div>
+        
+        <!-- Buttons -->
+        <div class="buttons">
+          <a href="#three-1" class="button gray app-link"><i class="fa fa-plus-circle"></i> Show Details</a>
+        </div>
+        <div class="clearfix"></div>
+
+      </div>
+
+      <!--  Hidden Tabs -->
+      <div class="app-tabs">
+
+        <a href="#" class="close-tab button gray"><i class="fa fa-close"></i></a>
+
+          <!-- Tab -->
+          <div class="app-tab-content"  id="three-1">
+        
+          <i>Email:</i>
+          <span><a href="mailto:<%= job.applicant[i].user.emailphone %>"><%= job.applicant[i].user.emailphone %></a></span>
+
+          <i>Message:</i>
+          <span><%= job.applicant[i].message %></span>
+          </div>
+
+      </div>
+      <!-- Footer -->
+      <div class="app-footer">
+        <ul class="padding">
+          <li><i class="fa fa-calendar"></i> <%= moment(job.applicant[i].createdOn).format('MMMM Do YYYY') %></li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+<%}%>
+
+    </div>
+    </div>
+
+
+
+<% include footer %>

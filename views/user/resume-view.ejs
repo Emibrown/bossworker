@@ -1,0 +1,109 @@
+<% include header %>
+
+ <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="resume">
+  <div class="container">
+    <div class="ten columns">
+      <div class="resume-titlebar">
+       <img src="/upload/file/<%= resume.user.photo %>" alt="photo">
+        <div class="resumes-list-content">
+          <h4><%= resume.user.firstname %> <%= resume.user.lastname %> <span><%= resume.title %></span></h4>
+          <span class="icons"><i class="fa fa-map-marker"></i> <%= resume.location %></span>
+          <% if(resume.paymentType != 'Negotiable'){%>
+               <span><i class="fa fa-money"></i><%= currencyFormatter.format(resume.payment, {
+  symbol: 'NGN',
+  decimal: '.',
+  thousand: ',',
+  precision: 0,
+  format: '%v %s' 
+})  + ' / '+ resume.paymentType %></span>
+<%} else { %>  
+              <span><i class="fa fa-money"></i><%= resume.paymentType %></span>
+<% } %>
+          <span class="icons"><a href=""><i class="fa fa-phone"></i>  <%= resume.user.phoneNumber %></a></span>
+          <span class="icons"><a href="mailto:<%= resume.user.emailphone %>"><i class="fa fa-envelope"></i> <%= resume.user.emailphone %></a></span>
+         
+          <div class="clearfix"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="six columns">
+      <div class="two-buttons">
+
+        <a href="" class="popup-with-zoom-anim button"><i class="fa fa-envelope"></i> Send Message</a>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+  <!-- Recent Jobs -->
+  <div class="eight columns">
+  <div class="padding-right">
+
+    <h3 class="margin-bottom-15">About Me</h3>
+
+    <div class="list-1 postv">
+           <%- resume.aboutMe %>
+    </div>
+
+     <div class="skills">
+      <h4>Skills</h4>
+        <%  for (var i = 0; i < resume.Tags.length; i++) { %>
+                  <span><%= resume.Tags[i] %></span>
+        <%}%>
+    </div>
+    <br>
+
+  </div>
+  </div>
+
+
+  <!-- Widgets -->
+  <div class="eight columns">
+
+    <h3 class="margin-bottom-20">Education</h3>
+
+    <!-- Resume Table -->
+    <dl class="resume-table">
+
+<%   for (var i = 0; i < resume.education.length; i++) { %>
+      <dt>
+        <small class="date"><%= resume.education[i].start %> - <%= resume.education[i].end %></small>
+        <strong><%= resume.education[i].qualification %> at <%= resume.education[i].name %></strong>
+      </dt>
+      <dd>
+        <p><%= resume.education[i].note %></p>
+      </dd>
+<% } %>
+
+    </dl>
+
+     <h3 class="margin-bottom-20">Experience</h3>
+
+    <!-- Resume Table -->
+    <dl class="resume-table">
+<%  for (var i = resume.experience.length - 1; i >= 0; i--) { %>
+      <dt>
+        <small class="date"><%= resume.experience[i].start %> - <%= resume.experience[i].end %></small>
+        <strong><%= resume.experience[i].jobTitle %> at <%= resume.experience[i].employer %></strong>
+      </dt>
+      <dd>
+        <p><%= resume.experience[i].note %></p>
+      </dd>
+<% } %>
+    </dl>
+
+  </div>
+
+</div>
+
+<% include footer %>

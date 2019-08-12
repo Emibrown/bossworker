@@ -1,0 +1,125 @@
+<% include header %>
+  <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Blog</h2>
+      <span>Keep up to date with the latest news</span>
+    </div>
+
+    <div class="six columns">
+      <a href="/manage/admin/add-blog-post" class="button">Add blog post</a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+
+  <!-- Blog Posts -->
+  <div class="eleven columns">
+    <div class="padding-right">
+
+<%if (posts.length == 0){%>
+    <h2>No post yet</h2>
+<% } %>
+<%for (var post in posts){%>
+     <!-- Post -->
+      <div class="post-container">
+        <div class="post-img"><a href="/manage/admin/blog-single-post/<%= posts[post].postId %>"><img src="/upload/file/<%= posts[post].cover %>" alt=""></a><div class="hover-icon"></div></div>
+        <div class="post-content">
+          <a href="#"><h3><%= posts[post].subject %> </h3></a>
+          <div class="meta-tags">
+            <span><%= moment(posts[post].created).format('MMMM Do YYYY') %></span>
+            <span><a href="#"><%= posts[post].comments.length %>  Comments</a></span>
+          </div>
+          <div class="list-1">
+            <%- striptags(posts[post].body).substring(0,300) %>...
+          </div>
+          <a class="button" href="/manage/admin/blog-single-post/<%= posts[post].postId %>">Read More</a> <a class="button" href="/manage/admin/edit-blog-post/<%= posts[post].postId %>">Edit</a>
+          <a ng-controller="singlePostCtrl" class="button" href="" ng-click="removepost('<%= posts[post]._id %>','<%= posts[post].subject %>')">delete</a>
+        </div>
+      </div>
+<% } %>
+     
+<% if (pages > 0) { %>
+         <!-- Pagination -->
+      <div class="pagination-container">
+        <nav class="pagination">
+          <ul class="padding">
+  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+      <% if (i !== 1) { %>
+            <li><a href="">...</a></li>
+      <% } %>
+
+      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+          <% if (i == current) { %>
+              <li><a href="" class="current-page"><%= i %></a></li>
+          <% } else { %>
+             <% if (i == 1) { %>
+                  <li><a href="/manage/admin/manage-blog"><%= i %></a></li>
+              <% } else { %>
+                  <li><a href="/manage/admin/manage-blog/page/<%= i %>"><%= i %></a></li>
+              <% } %>
+          <% } %>
+          <% if (i == Number(current) + 4 && i < pages) { %>
+             <li><a href="">...</a></li>
+          <% } %>
+      <% } %>
+          </ul>
+        </nav>
+
+        <nav class="pagination-next-prev">
+          <ul class="padding">
+              <% if (current == 1) { %>
+                  <li><a href="" class="prev">first</a></li>
+              <% } else { %>
+                  <li><a href="/manage/admin/manage-blog" class="prev">first</a></li>
+              <% } %>
+              <% if (current == pages) { %>
+                  <li><a href="" class="next">last</a></li>
+              <% } else { %>
+                  <li><a href="/manage/admin/manage-blog/page/<%= pages %>" class="next">last</a></li>
+              <% } %>
+          
+          </ul>
+        </nav>
+      </div>
+<% } %>
+     
+
+    </div>
+  </div>
+  <!-- Blog Posts / End -->
+
+
+  <!-- Widgets -->
+  <div class="five columns blog">
+
+    <!-- Search -->
+    <div class="widget">
+      <h4>Search</h4>
+      <div class="widget-box search">
+        <div class="input"><input class="search-field" type="text" placeholder="To search type and hit enter" value=""/></div>
+      </div>
+    </div>
+
+   
+
+  
+    
+    <div class="clearfix"></div>
+    <div class="margin-bottom-40"></div>
+
+  </div>
+  <!-- Widgets / End -->
+
+
+</div>
+
+<% include footer %>

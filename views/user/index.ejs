@@ -1,0 +1,141 @@
+<% include header %>
+ <!-- Banner
+================================================== -->
+<div id="banner" style="background-image: url(/images/banner-home-03.jpg)" class="parallax background" data-img-width="2000" data-img-height="1330" data-diff="400">
+  <div class="container">
+    <div class="sixteen columns">
+      
+      <div ng-controller="homeCtrl" class="search-container">
+
+        <!-- Form -->
+        <h2>Find job</h2>
+        <input ng-model="title" type="text" class="ico-01" placeholder="job title or keywords" value=""/>
+        <input ng-model="location" type="text" class="ico-02" placeholder="city, province or region" value=""/>
+
+        <a href="/user/jobs?search={{title}} {{location}}" style="margin: 0px; padding: 8px 20px; display: block; text-align: center;" class="button"><i class="fa fa-search"></i></a>
+ 
+     
+      
+        <!-- Announce -->
+        <div class="announce">
+          We have over <strong>15 000</strong> job offers for you!
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Content
+================================================== -->
+
+
+
+<div class="container">
+
+  <!-- Recent Jobs -->
+  <div class="eleven columns">
+  <div class="padding-right">
+    <h3 class="margin-bottom-25">Recent Jobs</h3>
+    <ul class="job-list padding">
+
+<%for (var job in jobs){%>
+      <li><a href="/user/jobs/<%= jobs[job].jobId %>/<%= jobs[job].jobTitle.replace(/ /g, '-') %>">
+        <img src="/upload/file/<%= jobs[job].logo %>" alt="">
+        <div class="job-list-content">
+          <h4><%= jobs[job].jobTitle %> <span class="<%= jobs[job].jobType.toLowerCase() %>"><%= jobs[job].jobType.toLowerCase() %></span></h4>
+          <div class="job-icons">
+            <span><i class="fa fa-briefcase"></i> <%= jobs[job].companyName %></span>
+            <span><i class="fa fa-map-marker"></i> <%= jobs[job].location %></span>
+            <span><i class="fa fa-calendar"></i> <%= moment(jobs[job].createdOn).format('MMM Do YYYY') %></span>
+<% if(jobs[job].paymentType != 'Negotiable' && jobs[job].paymentType != 'Confidential'){%>
+               <span><i class="fa fa-money"></i><%= currencyFormatter.format(jobs[job].payment, {
+  symbol: 'NGN',
+  decimal: '.',
+  thousand: ',',
+  precision: 0,
+  format: '%v %s' 
+})  + ' / '+ jobs[job].paymentType %></span>
+<%} else { %>  
+              <span><i class="fa fa-money"></i><%= jobs[job].paymentType %></span>
+<% } %>
+          </div>
+        </div>
+        </a>
+        <div class="clearfix"></div>
+      </li>
+<%}%>
+
+    </ul>
+
+    <a href="/user/jobs" class="button centered"><i class="fa fa-plus-circle"></i> Show More Jobs</a>
+    <div class="margin-bottom-55"></div>
+  </div>
+  </div>
+
+ <!-- Widgets -->
+  <div class="five columns">
+    <iframe src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=21&l=ur1&category=books&banner=1PBGJ6MX362TVT8X9P82&f=ifr&linkID=a60bc1464cbbd1ab002d9ff38cb68a7d&t=graphcard-20&tracking_id=graphcard-20" width="125" height="125" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0">
+    </iframe>
+    <iframe src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=26&l=ur1&category=prodjhead&banner=1PPDFJV4KVY60F8E36G2&f=ifr&linkID=f84640eca1b384537702b834c73b31c3&t=graphcard-20&tracking_id=graphcard-20" width="468" height="60" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+  </div>
+
+</div>
+
+
+<!-- Testimonials -->
+<div id="testimonials">
+  <!-- Slider -->
+  <div class="container">
+    <div class="sixteen columns">
+      <div class="testimonials-slider">
+          <ul class="slides">
+            <li>
+              <p>Video Here</p>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Infobox -->
+<div class="infobox">
+  <div class="container">
+    <div class="sixteen columns">Start Building Your Own Job Board Now <a href="/user/add-job">Post Job</a></div>
+  </div>
+</div>
+
+
+<!-- Recent Posts -->
+<div class="container">
+  <div class="sixteen columns">
+    <h3 class="margin-bottom-25">Recent Posts</h3>
+  </div>
+
+<%for (var post in latestposts){%>
+     <div class="one-third column">
+
+    <!-- Post #1 -->
+    <div class="recent-post">
+      <div class="recent-post-img"><a href="/user/blog/<%= latestposts[post].postId %>"><img src="/upload/file/<%= latestposts[post].cover %>" alt=""></a><div class="hover-icon"></div></div>
+      <a  href="/user/blog/<%= latestposts[post].postId %>"><h4><%= latestposts[post].subject %></h4></a>
+      <div class="meta-tags">
+        <span><%= moment(latestposts[post].created).format('MMMM Do YYYY') %></span>
+        <span><a href=""><%= latestposts[post].comments.length %> Comments</a></span>
+      </div>
+      <p>
+      <%- striptags(latestposts[post].body).substring(0,150) %>...
+      </p>
+      <a href="/user/blog/<%= latestposts[post].postId %>" class="button">Read More</a>
+    </div>
+
+  </div>
+<%}%>
+  
+</div>
+
+
+<% include footer %>

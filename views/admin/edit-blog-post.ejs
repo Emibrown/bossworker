@@ -1,0 +1,77 @@
+<% include header %>
+ <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Edit Blog Post</h2>
+      <nav id="breadcrumbs">
+        <ul class="padding">
+          <li>You are here:</li>
+          <li><a href="">Home</a></li>
+          <li>Edit blog post</li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- Content
+================================================== -->
+<div class="container"  ng-controller="editPostCtrl">
+  
+  <!-- Submit Page -->
+  <div class="sixteen columns">
+    <div class="submit-page">
+
+    
+    <form name="myForm" ng-init="post.message = '<%= post.body %>' ;post.subject = '<%= post.subject %>';">
+      <!-- Subject -->
+      <div class="form">
+        <h5>Subject <span>*</span></h5>
+        <input class="search-field" type="text" ng-click="clear()" ng-model="post.subject"/>
+      </div>
+
+      
+
+      <!-- cover -->
+      <div class="form">
+        <h5>Cover photo <span>*</span></h5>
+        <label class="upload-btn">
+            <input type="file" ngf-select ng-model="post.file" name="file"  
+             accept="image/*" ngf-max-size="2MB" required
+             ngf-model-invalid="errorFile" ngf-resize="{width: 840, height: 430, quality: 0.2, centerCrop: true, restoreExif: false}">
+            <i class="fa fa-upload"></i> Browse
+        </label>
+        <span ng-cloak class="fake-input ng-cloak">{{post.file.$ngfName || "No file selected" }}</span>
+      <i ng-show="myForm.file.$error.maxSize" ng-cloak class="ng-cloak">File too large 
+          {{errorFile.size / 1000000|number:1}}MB: max 2MB</i>
+      </div>
+
+  <!-- Description -->
+      <div class="">
+        <h5>Message <span>*</span></h5>
+        <wysiwyg-edit  ng-click="clear()" content="post.message"></wysiwyg-edit>
+      </div>
+
+      <div class="divider margin-top-0 padding-reset"></div>
+      <a href="" ng-click="update('<%= post.postId %>')" class="button big margin-top-5">Post <i class="fa fa-arrow-circle-right"></i></a>
+
+       <span  ng-cloak class="ng-cloak error" ng-show="formError">{{formError}}</span>
+       <span  ng-cloak class="ng-cloak success" ng-show="formSuccess">{{formSuccess}}</span>
+
+       </form>
+
+      <div class="divider margin-top-0 padding-reset"></div>
+
+    </div>
+  </div>
+
+</div>
+
+<% include footer %>

@@ -1,0 +1,146 @@
+<% include header %>
+
+ <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="resume">
+  <div class="container">
+    <div class="ten columns">
+      <div class="resume-titlebar">
+        <img src="/upload/file/<%= currentUser.photo %>" alt="">
+        <div class="resumes-list-content">
+          <h2><%= currentUser.firstname %> <%= currentUser.lastname %></h2>
+          <h3><%= currentUser.emailphone %></h3>
+           <h3><i class="fa fa-money"></i> <%= currencyFormatter.format(currentUser.credit, {
+  symbol: 'NGN',
+  decimal: '.',
+  thousand: ',',
+  precision: 2,
+  format: '%v %s' 
+}) %></h3>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+       <div ng-controller="homeCtrl" class="six columns">
+      <a href="" ng-click="cradit()" class="button">Get Credit</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="container" ng-controller="profileCtrl">
+  <!-- Recent Jobs -->
+  <div class="eight columns">
+  <div class="submit-page">
+
+   <!-- Notice -->
+    <div class="notification notice closeable margin-bottom-40">
+      <h2>Edit Profie</h2>
+    </div>
+
+ <form name="profileForm" ng-submit="edit(profileForm.$valid)" required novalidate  ng-init="profile.firstName = '<%= user.firstname %>';profile.lastName = '<%= user.lastname %>';profile.phone = '<%= user.phoneNumber %>';">
+      <!-- first name -->
+      <div class="form">
+        <h5>First Name </h5>
+        <input class="search-field" type="text" name="firstname" placeholder="Your first name" ng-click="clear()"  ng-model="profile.firstName" required/>
+        <p ng-cloak class="ng-cloak help-block" ng-show="profileForm.firstname.$invalid && !profileForm.firstname.$pristine" >Your first name is required.</p>
+      </div>
+
+      <!-- last name -->
+      <div class="form">
+        <h5>Last Name </h5>
+        <input class="search-field" type="text" name="lastname" placeholder="Your last name" ng-click="clear()"  ng-model="profile.lastName" required/>
+        <p ng-cloak class="ng-cloak help-block" ng-show="profileForm.lastname.$invalid && !profileForm.lastname.$pristine" >Your last name is required.</p>
+      </div>
+
+       <!-- last name -->
+      <div class="form">
+        <h5>Phone Number </h5>
+        <input class="search-field" type="text" name="phone" placeholder="Enter your phone number" ng-click="clear()"  ng-model="profile.phone" ng-pattern="/[7-9][0-9]{9}$/" required/>
+        <p ng-cloak class="ng-cloak help-block" ng-show="profileForm.phone.$error.required && !profileForm.phone.$pristine" >Phone number is required !</p>
+        <p ng-cloak class="ng-cloak help-block" ng-show="profileForm.phone.$error.pattern" >Enter a valid phone number !</p>
+      </div>
+
+      <!-- Photo -->
+      <div class="form">
+        <h5>Photo </h5>
+        <label class="upload-btn">
+            <input type="file" ngf-select ng-model="profile.file" name="file"  
+             accept="image/*" ngf-max-size="2MB"
+             ngf-model-invalid="errorFile" ngf-resize="{width: 200, height: 200, quality: 0.5, centerCrop: true, restoreExif: false}">
+            <i class="fa fa-upload"></i> Browse
+        </label>
+        <span ng-cloak class="ng-cloak fake-input">{{profile.file.$ngfName || "No file selected" }}</span>
+      </div>
+       <i ng-cloak class="ng-cloak button" ng-show="profileForm.file.$error.maxSize">File too large 
+       {{errorFile.size / 1000000|number:1}}MB: max 2MB</i>
+       <img ng-show="profileForm.file.$valid" ngf-thumbnail="profile.file" class="thumb"> 
+       <a href="" ng-cloak class="ng-cloak fake-input button" ng-click="profile.file = null" ng-show="profile.file">Remove</a>
+
+      <div class="divider margin-top-0 padding-reset"></div>
+
+
+      <button type="Submit" ng-cloak class="button ng-cloak  big margin-top-5">{{btn}}  <i class="fa fa-arrow-circle-right"></i>
+      </button>
+       <span ng-cloak class="error ng-cloak" ng-show="formError"> <i class="fa fa-warning"></i>  {{formError}}</span>
+    </form>
+    <br>
+
+    </div>
+  </div>
+  <div class="eight columns">
+  <div class="submit-page">
+        <!-- Notice -->
+    <div class="notification notice closeable margin-bottom-40">
+      <h2>Change password</h2>
+    </div>
+
+ <form name="passwordForm" ng-submit="change(passwordForm.$valid)" required novalidate>
+      <!-- old password -->
+      <div class="form">
+        <label for="password1">Password:
+          <i class="ln ln-icon-Lock-2"></i></label>
+        <input class="search-field" type="password" name="password" placeholder="Enter your password" ng-click="Pclear()" ng-minlength="8"  ng-model="password.old" required/>
+        <p ng-cloak class="ng-cloak help-block" ng-show="passwordForm.password.$error.required && !passwordForm.password.$pristine" >Your password is required.</p>
+        <p ng-cloak class="ng-cloak help-block"  ng-show="passwordForm.password.$error.minlength" >8 characters or more.</p>
+      </div>
+
+      
+      <!-- new password -->
+      <div class="form">
+         <label for="password1">New password:
+          <i class="ln ln-icon-Lock-2"></i></label>
+        <input class="search-field" type="password" name="password1" placeholder="Enter your new password" ng-click="Pclear()" ng-minlength="8"  ng-model="password.new" required/>
+       <p ng-cloak class="ng-cloak help-block" ng-show="passwordForm.password1.$error.required && !passwordForm.password1.$pristine" >Your new password is required.</p>
+        <p ng-cloak class="ng-cloak help-block"  ng-show="passwordForm.password1.$error.minlength" >8 characters or more.</p>
+      </div>
+
+       <!-- confirm password -->
+      <div class="form">
+       <label for="password1">Repeat new password:
+          <i class="ln ln-icon-Lock-2"></i></label>
+        <input class="search-field" type="password" name="password2" placeholder="Confirm new password" ng-click="Pclear()" ng-pattern="password.new"  ng-model="password.repeat" required/>
+        <p ng-cloak class="ng-cloak help-block"  ng-if="passwordForm.password2.$error.pattern" >Password miss-match!</p>
+      </div>
+
+  
+      <div class="divider margin-top-0 padding-reset"></div>
+
+
+      <button type="Submit" ng-cloak class="button ng-cloak  big margin-top-5">{{Pbtn}}  <i class="fa fa-arrow-circle-right"></i>
+      </button>
+       <span ng-cloak class="error ng-cloak" ng-show="passError"> <i class="fa fa-warning"></i>  {{passError}}</span>
+        <span ng-cloak class="success ng-cloak" ng-show="passSuccess"> <i class="fa fa-success"></i>  {{passSuccess}}</span>
+    </form>
+  </div>
+  </div>
+
+
+</div>
+
+
+
+
+<% include footer %>

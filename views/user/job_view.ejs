@@ -1,0 +1,230 @@
+<% include header %>
+
+   <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2><%= job.jobTitle %> <span class="<%= job.jobType.toLowerCase() %>"><%= job.jobType %></span></h2>
+<%  for (var i = 0; i < job.category.length; i++) { %>
+      <span><a href=""> / <%= job.category[i] %></a></span>
+<%}%>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container" ng-controller="applyjobCtrl">
+
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '398004183989233',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.11'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+var fb = function() {
+  FB.ui({
+    method: 'share',
+    display: 'popup',
+    href: "https://www.bossworker.com/user/jobs/<%- job.jobId %>/<%= job.jobTitle.replace(/ /g, '-') %>",
+  }, function(response){});
+}
+</script>
+  
+  <!-- Recent Jobs -->
+  <div class="eleven columns">
+  <div class="padding-right">
+    
+    <!-- Company Info -->
+    <div class="company-info">
+      <img src="/upload/file/<%= job.logo %>" alt="">
+      <div class="content">
+        <h4><%= job.companyName %></h4>
+        <span><a href="<%= job.website %>" target="_blank"><i class="fa fa-link"></i> Website</a></span>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <h3 class="margin-bottom-15">About This Job</h3>
+    <div class="list-1 postv">
+    <%- job.aboutJob %>
+    </div>
+
+    <br>
+
+<hr>
+
+ <div class="widget">
+      <h4>Share this job</h4>
+        <ul class="social-icons">
+          <li><a onclick="fb()" href="" class="facebook"><i class="icon-facebook"></i></a></li>
+          <li><a class="twitter" href="https://twitter.com/intent/tweet?hashtags=JobNewsInNigeria,NigeriaJobs,Bossworker&text=<%= job.jobTitle %> - <%= job.companyName %>&url=https://www.bossworker.com/user/jobs/<%- job.jobId %>/<%= job.jobTitle.replace(/ /g, '-') %>&via=bossworker" target="_blank"><i class="icon-twitter"></i></a></li>
+          <li><a class="gplus" href="https://plus.google.com/share?url=https://www.bossworker.com/user/jobs/<%- job.jobId %>/<%= job.jobTitle.replace(/ /g, '-') %>" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="icon-gplus"></i></a></li>
+          <li><a class="linkedin" href="#"><i class="icon-linkedin"></i></a></li>
+        </ul>
+    </div>
+
+
+  </div>
+  </div>
+
+
+  <!-- Widgets -->
+  <div class="five columns">
+
+    <!-- Sort by -->
+    <div class="widget">
+      <h4>Overview</h4>
+
+      <div class="job-overview">
+        
+        <ul class="padding">
+          <li>
+            <i class="fa fa-map-marker"></i>
+            <div>
+              <strong>Location:</strong>
+<%if(job.address){%>
+              <span><%= job.address %></span>
+<% } %>
+              <span><%= job.location %></span>
+            </div>
+          </li>
+          <li>
+            <i class="fa fa-money"></i>
+            <div>
+              <strong>Rate:</strong>
+<% if(job.payment){%>
+              <span><%= currencyFormatter.format(job.payment, {
+  symbol: 'NGN',
+  decimal: '.',
+  thousand: ',',
+  precision: 0,
+  format: '%v %s' 
+})  + ' / '+ job.paymentType %></span>
+<%} else { %>  
+              <span><%= job.paymentType %></span>
+<% } %>
+            </div>
+          </li>
+<%if(job.email){%>
+          <li>
+            <i class="fa fa-envelope"></i>
+            <div>
+              <strong>Email:</strong>
+              <span><%= job.email %></span>
+            </div>
+          </li>
+<% } %>   
+<%if(job.phone){%>
+          <li>
+            <i class="fa fa-phone"></i>
+            <div>
+              <strong>Phone number:</strong>
+              <span><%= job.phone %></span>
+            </div>
+          </li>
+<% } %>       
+        </ul>
+
+
+<% if(job.accountType == 'admin'){%>
+
+     <a href="<%= job.website %>" target="_blank" class="button">Apply For This Job</a>
+
+<%}else{%>
+<% if (currentUser){ %>
+  <% if ( JSON.stringify(job.user) != JSON.stringify(currentUser._id)){ %>
+      <% var found = false %>
+      <% for(var i = 0; i < job.applicant.length; i++) { %>
+        <% if (JSON.stringify(job.applicant[i].user) == JSON.stringify(currentUser._id)) { %>
+                <% var found = true %>
+                <% break %>
+        <% } %>
+      <% } %>
+      <% if(!found){ %>
+       <a class="button" ng-click="applyjob('<%= job._id %>')">Apply For This Job</a>  
+      <% } %>
+  <% } %>
+<% } else { %>
+         <a href="/user/login" class="button">Apply For This Job</a>
+<% } %>
+<%}%>
+
+       
+<% if (currentUser){ %>
+  <script type="text/ng-template" id="applyforjob">
+    <h2><a href="">Apply For This Job</a></h2>
+    <form name="jobForm" ng-submit="sendApp(jobForm.$valid)" required  novalidate>
+              <div class="form">
+                <h5>Message <span style="color: #EF6C00;">*</span></h5>
+                <textarea class="search-field" ng-minlength="5"  placeholder="Your message / cover letter sent to the employer" name="message" ng-click="clear()" ng-model="app.message" required></textarea>
+                <p style="font-size: 12px;" ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.message.$error.required" >Message is required.</p>
+                <p style="font-size: 12px;" ng-cloak class="ng-cloak help-block"  ng-show="jobForm.message.$error.minlength" >Message to short !</p>
+              </div>
+
+              <!-- Upload CV -->
+      <div class="form">
+        <h5>Upload CV <span style="color: #8BC34A;">pdf, docx, doc, image </span></h5>
+        <label class="upload-btn">
+            <input type="file" ngf-select ng-model="app.file" name="file" ngf-pattern="'.pdf,.docx,.doc,image/*'" accept="'.pdf,.docx,.doc,image/*'" ngf-accept="'.pdf,.docx,.doc,image/*'" ngf-max-size="3MB" ngf-model-invalid="errorFile">
+            <i class="fa fa-upload"></i> Browse
+        </label>
+        <span ng-cloak class="ng-cloak fake-input" ng-hide="app.file"> No file selected</span>
+        <span ng-cloak class="ng-cloak fake-input" ng-show="app.file"> file selected</span>
+      </div>
+       <p style="font-size: 12px;" ng-cloak class="ng-cloak help-block" ng-show="jobForm.file.$error.pattern">File format not allowed</p>
+       <p style="font-size: 12px;" ng-cloak class="ng-cloak help-block" ng-show="jobForm.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max 3MB</p>
+       <a style="font-size: 10px; padding: 2px 10px;" class="button" ng-click="app.file = null" ng-show="app.file">Remove file</a>
+
+      <div class="divider"></div>
+      <br>
+
+      <div>
+        <button type="submit" class="send">{{send}}</button>
+        <span ng-cloak class="error ng-cloak" ng-show="formError">{{formError}}</span>
+        <span ng-cloak class="success ng-cloak" ng-show="formSuccess">{{formSuccess}}</span>
+      </div>
+
+            </form>
+</script> 
+
+<% } %>
+  
+      </div>
+
+    </div>
+    <br>
+
+    <iframe src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=21&l=ur1&category=books&banner=1PBGJ6MX362TVT8X9P82&f=ifr&linkID=a60bc1464cbbd1ab002d9ff38cb68a7d&t=graphcard-20&tracking_id=graphcard-20" width="125" height="125" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0">
+    </iframe>
+    
+
+  </div>
+  <!-- Widgets / End -->
+
+
+
+
+
+</div>
+
+<% include footer %>

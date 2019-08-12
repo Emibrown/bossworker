@@ -1,0 +1,194 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+.angular-squire {
+  transition: transition(all 2s);
+  outline: none;
+  border: 1px solid #d2d2d2; }
+  .angular-squire.angular-squire-wrap-contents, .angular-squire.angular-squire-wrap-contents .angular-squire-wrapper {
+    max-height: none;
+    min-height: 100px; }
+  .angular-squire.angular-squire-chrome-on-focus {
+    transition: border-color 250ms; }
+    .angular-squire.angular-squire-chrome-on-focus svg {
+      transition: opacity 250ms; }
+    .angular-squire.angular-squire-chrome-on-focus div::after {
+      transition: background-color 250ms; }
+    .angular-squire.angular-squire-chrome-on-focus div {
+      transition: border-color 250ms; }
+  .angular-squire.angular-squire-chrome-on-focus:not(.focus):not(:hover) {
+    border-color: transparent; }
+    .angular-squire.angular-squire-chrome-on-focus:not(.focus):not(:hover) svg {
+      opacity: 0; }
+    .angular-squire.angular-squire-chrome-on-focus:not(.focus):not(:hover) div::after {
+      background-color: transparent !important; }
+    .angular-squire.angular-squire-chrome-on-focus:not(.focus):not(:hover) div {
+      border-color: transparent;
+      background-color: transparent !important; }
+  .angular-squire .hl, .angular-squire .menu .item:hover, .angular-squire .menu.b .item.bold, .angular-squire .menu.i .item.italic, .angular-squire .menu.ul .item.ulist, .angular-squire .menu.ol .item.olist, .angular-squire .menu.u .item.underline, .angular-squire .menu.blockquote .item.quote, .angular-squire .menu.align-left .item.aleft, .angular-squire .menu.align-right .item.aright, .angular-squire .menu.align-center .item.acenter, .angular-squire .menu.size .item.header, .angular-squire .menu.a .item.add-link {
+    background-color: #d2d2d2; }
+    .angular-squire .hl svg path, .angular-squire .menu .item:hover svg path, .angular-squire .menu.b .item.bold svg path, .angular-squire .menu.i .item.italic svg path, .angular-squire .menu.ul .item.ulist svg path, .angular-squire .menu.ol .item.olist svg path, .angular-squire .menu.u .item.underline svg path, .angular-squire .menu.blockquote .item.quote svg path, .angular-squire .menu.align-left .item.aleft svg path, .angular-squire .menu.align-right .item.aright svg path, .angular-squire .menu.align-center .item.acenter svg path, .angular-squire .menu.size .item.header svg path, .angular-squire .menu.a .item.add-link svg path {
+      fill: #4c4c4c; }
+  .angular-squire.input-focus-expanding .angular-squire-container .placeholder {
+    height: 30px; }
+  .angular-squire.input-focus-expanding .editor-container {
+    height: 70px;
+    transition: height 0.25s ease-in; }
+  .angular-squire.input-focus-expanding.input-focus .editor-container {
+    height: 150px;
+    transition: height 0.25s ease-in; }
+  .angular-squire .popover-visible .squire-popover {
+    display: block; }
+  .angular-squire .squire-popover {
+    position: absolute;
+    z-index: 101;
+    top: 4rem;
+    display: none;
+    border-radius: 3px;
+    min-width: 250px;
+    transition: all 160ms ease-out;
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0.25)); }
+    .angular-squire .squire-popover svg.squire-arrow {
+      filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0.25));
+      left: calc(50% - 1.5rem);
+      position: absolute;
+      top: calc(-1.5rem + 1px);
+      transition: all 160ms ease-out;
+      width: 3rem !important;
+      height: calc(2rem + 1px) !important;
+      z-index: 100; }
+      .angular-squire .squire-popover svg.squire-arrow polygon {
+        fill: #eeeeee;
+        stroke-linecap: butt;
+        stroke-linecap: butt;
+        stroke-linejoin: miter;
+        stroke-width: 1; }
+    .angular-squire .squire-popover .content {
+      background: #eeeeee;
+      border: 1px solid #d2d2d2;
+      z-index: 110;
+      padding: 10px; }
+      .angular-squire .squire-popover .content .title {
+        font-weight: bold;
+        padding: 1rem 0; }
+      .angular-squire .squire-popover .content input, .angular-squire .squire-popover .content button {
+        border-radius: 4px;
+        border: 1px solid #fff;
+        height: 30px;
+        padding: 2px;
+        display: block;
+        width: 100%;
+        background-color: #fff;
+        margin: 5px 0; }
+        .angular-squire .squire-popover .content input:hover span.fa, .angular-squire .squire-popover .content input:active span.fa, .angular-squire .squire-popover .content button:hover span.fa, .angular-squire .squire-popover .content button:active span.fa {
+          color: #d2d2d2; }
+        .angular-squire .squire-popover .content input.disabled, .angular-squire .squire-popover .content button.disabled {
+          opacity: 0.5; }
+          .angular-squire .squire-popover .content input.disabled span.fa, .angular-squire .squire-popover .content button.disabled span.fa {
+            color: inherit; }
+      .angular-squire .squire-popover .content .button-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between; }
+      .angular-squire .squire-popover .content button.double {
+        width: 48%;
+        margin-bottom: 10px; }
+    .angular-squire .squire-popover .squire-popover-overlay {
+      background-color: transparent;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      opacity: 0;
+      z-index: -1; }
+  .angular-squire .editor-container {
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    animation-name: fadeIn;
+    height: 100%;
+    background-color: #fff; }
+    .angular-squire .editor-container .ng-hide {
+      height: 0; }
+    .angular-squire .editor-container.editor-hide {
+      height: 0;
+      overflow: hidden; }
+  .angular-squire .angular-squire-controls, .angular-squire .angular-squire-cover {
+    display: block; }
+  .angular-squire .menu {
+    border-bottom: 1px solid #d2d2d2;
+    display: block;
+    height: 30px;
+    margin: 0;
+    padding: 5px 14px;
+    -webkit-touch-callout: none;
+    user-select: none; }
+    .angular-squire .menu .item {
+      border-radius: 3px;
+      display: inline-block;
+      line-height: 0;
+      margin-bottom: 0;
+      margin-right: 8px;
+      outline: none;
+      padding: 2px;
+      position: relative;
+      width: auto; }
+      .angular-squire .menu .item svg {
+        height: 14px;
+        width: 14px; }
+        .angular-squire .menu .item svg g {
+          fill: #388e3c; }
+  .angular-squire .item.underline, .angular-squire .item.ulist {
+    margin-right: 20px; }
+    .angular-squire .item.underline:after, .angular-squire .item.ulist:after {
+      content: "";
+      width: 1px;
+      height: 10px;
+      background-color: #d2d2d2;
+      display: inline-block;
+      position: absolute;
+      top: 4px;
+      right: -13px; }
+  .angular-squire .angular-squire-container {
+    position: relative; }
+    .angular-squire .angular-squire-container .placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 1rem;
+      background: #fff;
+      color: #d2d2d2;
+      z-index: 0; }
+  .angular-squire .angular-squire-wrapper {
+    position: relative;
+    padding: 10px;
+    min-height: 150px;
+    overflow: auto;
+    color: #848484;
+    font-family: "Lato", sans-serif, sans-serif;
+    font-size: 14px;
+    max-height: 150px; }
+    @media (max-width: 375px) {
+      .angular-squire .angular-squire-wrapper {
+        min-height: 60px;
+        max-height: none; } }
+  .angular-squire textarea {
+    width: 100%;
+    border: none;
+    padding: 10px; }
+
+.angular-squire-theme-dark.angular-squire .editor-container, .angular-squire-theme-dark.angular-squire .angular-squire-wrapper .placeholder {
+  background-color: #f6f6f6; }
+
+html.angular-squire-theme-dark.angular-squire-iframe body {
+  background-color: #f6f6f6; }
+
+.angular-squire .angular-squire-wrapper .placeholder div {
+  padding: 10px; }

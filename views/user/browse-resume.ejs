@@ -1,0 +1,124 @@
+<% include header %>
+  <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Freelancer Finder</h2>
+      <div class="six columns">
+      <a href="/user/add-freelance" class="button">Post a freelance!</a>
+    </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container" ng-controller="browseresumeCtrl">
+  <!-- Recent Jobs -->
+  <div class="eleven columns">
+  <div class="padding-right">
+    
+  <form  ng-init="search = '<%= search %>';" ng-submit="searchresume(search)" class="list-search">
+      <button type="submit" ><i class="fa fa-search"></i></button>
+      <input type="text" ng-model="search" placeholder="Search freelancer services (e.g. logo design)" />
+      <div class="clearfix"></div>
+    </form>
+
+   
+<%if (resumes.length == 0 && search){%>
+    <h4>Sorry no freelancer matches your search result <strong>"<%= search %>"</strong></h4>
+<% } %>  
+
+
+    <ul class="resumes-list full padding">
+<%for (var resume in resumes){%>
+      <li><a href="/user/freelancers/<%= resumes[resume].resumeId %>">
+        <img src="/upload/profilePhoto/<%= resumes[resume].user.photo %>" alt="photo">
+        <div class="resumes-list-content">
+         <h4><%= resumes[resume].user.firstname %> <%= resumes[resume].user.lastname %> <span><%= resumes[resume].title %></span></h4>
+          <span><i class="fa fa-map-marker"></i> <%= resumes[resume].location %></span>
+          <span><i class="fa fa-phone"></i> <%= resumes[resume].user.phoneNumber %></span>
+          <% if(resumes[resume].paymentType != 'Negotiable'){%>
+               <span><i class="fa fa-money"></i><%= currencyFormatter.format(resumes[resume].payment, {
+  symbol: 'NGN',
+  decimal: '.',
+  thousand: ',',
+  precision: 0,
+  format: '%v %s' 
+})  + ' / '+ resumes[resume].paymentType %></span>
+<%} else { %>  
+              <span><i class="fa fa-money"></i><%= resumes[resume].paymentType %></span>
+<% } %>
+          <div class="skills">   
+            <%  for (var i = 0; i < resumes[resume].Tags.length; i++) { %>
+                      <span><%= resumes[resume].Tags[i] %></span>
+            <%}%>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        </a>
+        <div class="clearfix"></div>
+      </li>
+<%}%>
+    </ul>
+    <div class="clearfix"></div>
+
+    <% if (pages > 0) { %>
+         <!-- Pagination -->
+      <div class="pagination-container">
+        <nav class="pagination">
+          <ul class="padding">
+  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+      <% if (i !== 1) { %>
+            <li><a href="">...</a></li>
+      <% } %>
+
+      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+          <% if (i == current) { %>
+              <li><a href="" class="current-page"><%= i %></a></li>
+          <% } else { %>
+             <% if (i == 1) { %>
+                  <li><a href="/user/freelancers?search=<%= search %>"><%= i %></a></li>
+              <% } else { %>
+                  <li><a href="/user/freelancers?page=<%= i %>&search=<%= search %>"><%= i %></a></li>
+              <% } %>
+          <% } %>
+          <% if (i == Number(current) + 4 && i < pages) { %>
+             <li><a href="">...</a></li>
+          <% } %>
+      <% } %>
+          </ul>
+        </nav>
+
+        <nav class="pagination-next-prev">
+          <ul class="padding">
+              <% if (current == 1) { %>
+                  <li><a href="" class="prev">first</a></li>
+              <% } else { %>
+                  <li><a href="/user/freelancers?search=<%= search %>" class="prev">first</a></li>
+              <% } %>
+              <% if (current == pages) { %>
+                  <li><a href="" class="next">last</a></li>
+              <% } else { %>
+                  <li><a href="/user/freelancers?page=<%= pages %>&search=<%= search %>" class="next">last</a></li>
+              <% } %>
+          
+          </ul>
+        </nav>
+      </div>
+<% } %>
+
+  </div>
+  </div>
+
+
+   
+
+
+
+</div>
+<% include footer %>

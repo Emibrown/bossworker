@@ -1,0 +1,168 @@
+<% include header %>
+  <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Blog</h2>
+      <span>Keep up to date with the latest news</span>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container" ng-controller="browseBlogCtrl">
+
+  <!-- Blog Posts -->
+  <div class="eleven columns">
+    <div class="padding-right">
+
+<%if (posts.length == 0 && search){%>
+    <h4>Sorry no blog post matches your search result <strong>"<%= search %>"</strong></h4>
+<% } %>  
+<%for (var post in posts){%>
+     <!-- Post -->
+      <div class="post-container">
+        <div class="post-img"><a href="/user/blog/<%= posts[post].postId %>"><img src="/upload/file/<%= posts[post].cover %>" alt=""></a><div class="hover-icon"></div></div>
+        <div class="post-content">
+          <a href="/user/blog/<%= posts[post].postId %>"><h3 style="color: green;"><%= posts[post].subject %> </h3></a>
+          <div class="meta-tags">
+            <span><%= moment(posts[post].created).format('MMMM Do YYYY') %></span>
+            <span><a href="#"><%= posts[post].comments.length %>  Comments</a></span>
+          </div>
+          <br>
+          <div class="list-1">
+            <%- striptags(posts[post].body).substring(0,300) %>...
+          </div>
+          <a class="button" href="/user/blog/<%= posts[post].postId %>">Read More</a>
+        </div>
+      </div>
+<% } %>
+     
+ <% if (pages > 0) { %>
+         <!-- Pagination -->
+      <div class="pagination-container">
+        <nav class="pagination">
+          <ul class="padding">
+  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+      <% if (i !== 1) { %>
+            <li><a href="">...</a></li>
+      <% } %>
+
+      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+          <% if (i == current) { %>
+              <li><a href="" class="current-page"><%= i %></a></li>
+          <% } else { %>
+             <% if (i == 1) { %>
+                  <li><a href="/user/blog?search=<%= search %>"><%= i %></a></li>
+              <% } else { %>
+                  <li><a href="/user/blog?page=<%= i %>&search=<%= search %>"><%= i %></a></li>
+              <% } %>
+          <% } %>
+          <% if (i == Number(current) + 4 && i < pages) { %>
+             <li><a href="">...</a></li>
+          <% } %>
+      <% } %>
+          </ul>
+        </nav>
+
+        <nav class="pagination-next-prev">
+          <ul class="padding">
+              <% if (current == 1) { %>
+                  <li><a href="" class="prev">first</a></li>
+              <% } else { %>
+                  <li><a href="/user/blog?search=<%= search %>" class="prev">first</a></li>
+              <% } %>
+              <% if (current == pages) { %>
+                  <li><a href="" class="next">last</a></li>
+              <% } else { %>
+                  <li><a href="/user/blog?page=<%= pages %>&search=<%= search %>" class="next">last</a></li>
+              <% } %>
+          
+          </ul>
+        </nav>
+      </div>
+<% } %>
+
+
+    </div>
+  </div>
+  <!-- Blog Posts / End -->
+
+
+  <!-- Widgets -->
+  <div class="five columns blog">
+
+    <!-- Search -->
+    <div class="widget">
+      <h4>Search</h4>
+      <div class="widget-box search">
+        <form  ng-init="search = '<%= search %>';" ng-submit="searchBlog(search)" >
+          <div class="input"><input class="search-field" type="text" ng-model="search" placeholder="To search type and hit enter" /></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="widget">
+       <iframe src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=21&l=ur1&category=books&banner=1PBGJ6MX362TVT8X9P82&f=ifr&linkID=a60bc1464cbbd1ab002d9ff38cb68a7d&t=graphcard-20&tracking_id=graphcard-20" width="125" height="125" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0">
+       </iframe>
+    </div>
+
+    <div class="widget">
+      <h4>Got any questions?</h4>
+      <div class="widget-box">
+        <p>If you are having any questions, please feel free to ask.</p>
+        <a href="contact.html" class="button widget-btn"><i class="fa fa-envelope"></i> Drop Us a Line</a>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="widget">
+
+      <h4>Latest Post</h4>
+
+      <!-- Tabs Content -->
+      <div class="tabs-container">
+
+        <div class="tab-content" >
+          
+          <!-- Recent Posts -->
+          <ul class="widget-tabs padding">
+<%for (var post in latestposts){%>
+      <!-- Post #1 -->
+            <li>
+              <div class="widget-thumb">
+                <a href="/user/blog/<%= latestposts[post].postId %>"><img src="/upload/file/<%= latestposts[post].cover %>" alt="" /></a>
+              </div>
+              
+              <div class="widget-text">
+                <h5><a href="/user/blog/<%= latestposts[post].postId %>"><%= latestposts[post].subject %></a></h5>
+                <span><%= moment(latestposts[post].created).format('MMMM Do YYYY') %></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+<%}%>
+      
+          </ul>
+    
+        </div>
+      </div>
+    </div>
+
+
+   
+    
+    <div class="clearfix"></div>
+    <div class="margin-bottom-40"></div>
+
+  </div>
+  <!-- Widgets / End -->
+
+
+</div>
+
+<% include footer %>

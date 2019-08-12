@@ -1,0 +1,62 @@
+<% include header %>
+
+
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Reset Password</h2>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+
+<!-- Container -->
+<div class="container"  ng-controller="resetPassCtrl">
+
+  <div class="my-account">
+
+  
+    <div class="tabs-container">
+      <!-- Login -->
+      <div class="tab-content">
+        <form class="login" name="resetForm" ng-submit="passReset(resetForm.$valid)" ng-init="token = '<%= token %>';" novalidate required>
+
+        <p class="form-row form-row-wide">
+          <label for="password1">New Password (8 or more characters):
+            <i class="ln ln-icon-Lock-2"></i>
+            <input class="input-text" ng-click="clear()" name="password" type="password" ng-minlength="8" ng-model="credentials.password" required />
+          </label>
+          <span class="error" ng-cloak class="ng-cloak" ng-show="resetForm.password1.$error.minlength">8 characters or more</span>
+          <span class="error"  ng-cloak class="ng-cloak" ng-if="resetForm.password.$error.required && !resetForm.password.$pristine">Please enter your password</span>
+        </p>
+
+        <p class="form-row form-row-wide">
+          <label for="password2">Repeat Password:
+            <i class="ln ln-icon-Lock-2"></i>
+            <input class="input-text" ng-click="clear()" name="password2" type="password" ng-model="credentials.password2" ng-pattern="credentials.password" required/>
+          </label>
+           <span class="error"  ng-cloak class="ng-cloak" ng-if="resetForm.password2.$error.pattern">Password miss-match!</span>
+        </p>
+
+          <p class="form-row ">
+            <button type="submit" class="button fullw border fw margin-top-10"  ng-cloak class="ng-cloak">{{button}}</button>
+            <span class="error" ng-cloak class="ng-cloak" ng-show="formError">{{formError}}</span>
+          </p>
+
+          
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<% include footer %>

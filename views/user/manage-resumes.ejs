@@ -1,0 +1,72 @@
+<% include header %>
+  <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Manage Freelance</h2>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container" ng-controller="manageresumeCtrl">
+  
+  <!-- Table -->
+  <div class="sixteen columns">
+
+    <p class="margin-bottom-25">Your listings are shown in the table below. Expired listings will be automatically removed after 30 days.</p>
+
+    <table class="manage-table resumes  responsive-table">
+
+      <tr>
+        <th><i class="fa fa-file-text"></i> Title</th>
+        <th><i class="fa fa-check-square-o"></i> Status</th>
+        <th><i class="fa fa-calendar"></i> Date Posted</th>
+        <th><i class="fa fa-calendar"></i> Date Expires</th>
+        <th></th>
+      </tr>
+         
+      <!-- Items -->
+<%for (var resume in resumes){%>
+     <tr>
+        <td><%= resumes[resume].title %></td>
+        <td><%= resumes[resume].status %></td>
+        <td><%= moment(resumes[resume].createdOn).format('MMMM Do YYYY') %></td>
+<% if (resumes[resume].expiresOn) {%>
+        <td><%= moment(resumes[resume].expiresOn).format('MMMM Do YYYY') %></td>
+<% }else { %>
+        <td>-</td>
+<% }%>
+        <td class="action">
+          <a href="/user/edit-freelance/<%= resumes[resume].resumeId %>"><i class="fa fa-pencil"></i> Edit</a>
+          <a href="" ng-click="removeresume('<%= resumes[resume]._id %>','<%= resumes[resume].title %>')" class="delete"><i class="fa fa-remove"></i> Delete</a>
+<% if (resumes[resume].status != 'Posted') {%>
+         <a href="" ng-click = "postresume('<%= resumes[resume]._id %>')"><i class="fa fa-arrow-circle-right"></i> Post resume</a>
+<% }%>
+        </td>
+      </tr> 
+<%}%>
+      
+
+    </table>
+
+    <br>
+    <a href="/user/add_job" class="button">Add Job</a>
+
+  </div>
+
+<script type="text/ng-template" id="removeresume">
+    <h1><a href="">{{title}}</a></h1>
+    <p>Deleting this freelance you will lost all data relateted to it.</p>
+    <p>Are you sure you want to remove this freelance ?</p>
+    <a href="" ng-click="removeresume()" ng-cloak  class="button ng-cloak">{{remove}}</a>
+</script> 
+
+</div>
+
+<% include footer %>

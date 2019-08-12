@@ -1,0 +1,304 @@
+<% include header %>
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single submit-page">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2><i class="fa fa-plus-circle"></i> Add Job</h2>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container"  ng-controller="addjobCtrl">
+  
+<form name="jobForm" ng-submit="create(jobForm.$valid)" required novalidate>
+  <!-- Submit Page -->
+  <div class="ten columns">
+    <div class="submit-page">
+
+      <!-- Notice -->
+      <div class="notification notice closeable margin-bottom-40">
+        <p>Posting a job on BossWorker will cost you a fee of 100 NGN per week! However, Make sure you post in the correct Location, Categories and Type.</p>
+      </div>
+
+      <!-- Title -->
+      <div class="form">
+        <h5>Job Title <span style="color: #EF6C00;">*</span></h5>
+        <input class="search-field" ng-minlength="5" type="text" placeholder="Enter job title" name="title" ng-click="clear()" ng-model="job.title" required />
+        <p ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.title.$error.required" >Job title is required.</p>
+        <p ng-cloak class="ng-cloak help-block"  ng-show="jobForm.title.$error.minlength" >Job title too short !</p>
+      </div>
+  
+      <!-- Location -->
+      <div class="form">
+        <h5>Location <span style="color: #EF6C00;">*</span></h5>
+        <select data-placeholder="Choose Categories" chosen="{width: '100%'}" name="location" ng-click="clear()" ng-model="job.location" required>
+          <option value="Abia" >Abia</option>
+          <option value="Abuja">Abuja</option>
+          <option value="Adamawa"  >Adamawa</option>
+          <option value="Akwa Ibom"  >Akwa Ibom</option>
+          <option value="Anambra">Anambra</option>
+          <option value="Asaba" >Asaba</option>
+          <option value="Bauchi">Bauchi</option>
+          <option value="Bayelsa" >Bayelsa</option>
+          <option value="Benin" >Benin</option>
+          <option value="Benue" >Benue</option>
+          <option value="Borno" >Borno</option>
+          <option value="Cross River">Cross River</option>
+          <option value="Calabar">Calabar</option>
+          <option value="Delta">Delta</option>
+          <option value="Ebonyi" >Ebonyi</option>
+          <option value="Edo">Edo</option>
+          <option value="Ekiti" >Ekiti</option>
+          <option value="Enugu" >Enugu</option>
+          <option value="Gombe" >Gombe</option>
+          <option value="Ibadan" >Ibadan</option>
+          <option value="Imo">Imo</option>
+          <option value="Jigawa">Jigawa</option>
+          <option value="Kaduna"   >Kaduna</option>
+          <option value="Kano" >Kano</option>
+          <option value="Katsina" >Katsina</option>
+          <option value="Kebbi" >Kebbi</option>
+          <option value="Kogi" >Kogi</option>
+          <option value="Kwara" >Kwara</option>
+          <option value="Lagos"  >Lagos</option>
+          <option value="Nasarawa" >Nasarawa</option>
+          <option value="Nationwide" >Nationwide</option>
+          <option value="65"  class="65" >Niger</option>
+          <option value="Nigeria">Nigeria</option>
+          <option value="Ogun"  >Ogun</option>
+          <option value="Ondo" >Ondo</option>
+          <option value="Osun" >Osun</option>
+          <option value="Oyo" >Oyo</option>
+          <option value="Plateau" >Plateau</option>
+          <option value="Port Harcourt" >Port Harcourt</option>
+          <option value="Rivers" >Rivers</option>
+          <option value="Sokoto"  >Sokoto</option>
+          <option value="Taraba" >Taraba</option>
+          <option value="Uyo" >Uyo</option>
+          <option value="warri" >warri</option>
+          <option value="Yobe" >Yobe</option>
+          <option value="Zamfara" >Zamfara</option>
+        </select>
+        <p ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.location.$error.required" >Job location is required.</p>
+      </div>
+   
+      <!-- Job Type -->
+      <div class="form">
+        <h5>Job Type <span style="color: #EF6C00;">*</span></h5>
+        <select data-placeholder="Choose Job Type" chosen="{width: '100%'}"  name="type" ng-click="clear()" ng-model="job.type" required>
+          <option value="Full-Time">Full-Time</option>
+          <option value="Part-Time">Part-Time</option>
+          <option value="Internship">Internship</option>
+        </select>
+         <p ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.type.$error.required" >Job type is required.</p>
+      </div>
+     
+      <!-- Choose Category -->
+      <div class="form">
+          <h5>Category <span style="color: #EF6C00;">*</span></h5>
+          <select data-placeholder="Choose Categories" name="category" chosen="{width: '100%'}" multiple ng-click="clear()"  ng-model="job.cat" required>
+            <option value="Web Developers">Web Developers</option>
+            <option value="Mobile Developers">Mobile Developers</option>
+            <option value="Designers & Creatives">Designers & Creatives</option>
+            <option value="Writers">Writers</option>
+            <option value="Virtual Assistants">Virtual Assistants</option>
+            <option value="Customer Service Agents">Customer Service Agents</option>
+            <option value="Sales & Marketing">Sales & Marketing </option>
+            <option value="Accountants & Consultants">Accountants & Consultants</option>
+            <option value="Administrative">Administrative</option>
+            <option value="Agriculture">Agriculture</option>
+            <option value="Audit">Audit</option>
+            <option value="Aviation">Aviation</option>
+            <option value="Banking">Banking</option>
+            <option value="Brand Manager">Brand Manager</option>
+            <option value="Breweries" >Breweries</option>
+            <option value="Business Management" >Business Management</option>
+            <option value="Catering">Catering</option>
+            <option value="Chef">Chef</option>
+            <option value="Civil Service" >Civil Service</option>
+            <option value="Communications" >Communications</option>
+            <option value="Construction" >Construction</option>
+            <option value="Crane Operator"  >Crane Operator</option>
+            <option value="Computer Operator"  >Computer Operator</option>
+            <option value="Computer Repairs">Computer Repairs</option>
+            <option value="Computer Networking">Computer Networking</option>
+            <option value="Customer Service" >Customer Service</option>
+            <option value="Designer">Designer</option>
+            <option value="Developer"  >Developer</option>
+            <option value="Driver" >Driver</option>
+            <option value="eCommerce" >eCommerce</option>
+            <option value="furniture Marketing" >furniture Marketing</option>
+            <option value="furniture" >furniture</option>
+            <option value="Education" >Education</option>
+            <option value="Electrical Enginee"  >Electrical Engineer</option>
+            <option value="Energy" >Energy</option>
+            <option value="Engineering" >Engineering</option>
+            <option value="Fashion" >Fashion</option>
+            <option value="Finance" >Finance</option>
+            <option value="Government" >Government</option>
+            <option value="Graduate Trainee"  >Graduate Trainee</option>
+            <option value="Graphic Design"  >Graphic Design</option>
+            <option value="Health Care" >Health Care</option>
+            <option value="Hospitality"  >Hospitality</option>
+            <option value="Human Resource" >Human Resource</option>
+            <option value="Information Technology" >Information Technology</option>
+            <option value="Installation Engineer"  >Installation Engineer</option>
+            <option value="Internship Program"  >Internship Program</option>
+            <option value="Investment Analyst">Investment Analyst</option>
+            <option value="Journalism">Journalism</option>
+            <option value="Laboratory Technician">Laboratory Technician</option>
+            <option value="Legal">Legal</option>
+            <option value="Logistics">Logistics</option>
+            <option value="Manager" >Manager</option>
+            <option value="Manufacturing" >Manufacturing</option>
+            <option value="Marketing" >Marketing</option>
+            <option value="Media" >Media</option>
+            <option value="Medicals" >Medicals</option>
+            <option value="NGOs" >NGOs</option>
+            <option value="Nursing" >Nursing</option>
+            <option value="Oil & Gas" >Oil & Gas</option>
+            <option value="Operations"  >Operations</option>
+            <option value="Others" >Others</option>
+            <option value="Packaging">Packaging</option>
+            <option value="Personal Assistant">Personal Assistant</option>
+            <option value="Procurement Specialist">Procurement Specialist</option>
+            <option value="Project Management"  >Project Management</option>
+            <option value="Public Relations">Public Relations</option>
+            <option value="Real Estate" >Real Estate</option>
+            <option value="Researcher"  >Researcher</option>
+            <option value="Sales" >Sales</option>
+            <option value="Secretary">Secretary</option>
+            <option value="Security">Security</option>
+            <option value="Service Specialist">Service Specialist</option>
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Store Keeper" >Store Keeper</option>
+            <option value=">Tax Consultant" >Tax Consultant</option>
+            <option value="Technical Support" >Technical Support</option>
+            <option value="Technology" >Technology</option>
+            <option value="Telecommunications" >Telecommunications</option>
+            <option value="Warehouse" >Warehouse</option>
+            <option value="Welder">Welder</option>
+            <option value="Writing" >Writing</option>
+          </select>
+           <p ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.category.$error.required" >Job category is required.</p>
+      </div>
+      
+     
+  
+      <!-- Description -->
+      <div>
+        <h5>About job  <span style="color: #EF6C00;">*</span></h5>
+        <wysiwyg-edit  ng-click="clear()" content="job.aboutJob" config="editorConfig"></wysiwyg-edit>
+      </div>
+    
+      <br>
+
+      <div class="form">
+        <h5>Payment Type <span style="color: #EF6C00;">*</span></h5>
+        <select chosen="{width: '100%'}" name="paymentType" ng-model="job.paymentType" ng-change="check()" required>
+          <option value="">Select payment type</option>
+          <option value="Negotiable">Negotiable</option>
+          <option value="Confidential">Confidential</option>
+          <option value="Hour">Hourly</option>
+          <option value="Day">Daily</option>
+          <option value="Week">Weekly</option>
+          <option value="Month">Monthly</option>
+          <option value="Year">Yearly</option>
+        </select>
+          <p ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.paymentType.$error.required" >Job payment Type is required.</p>
+      </div>
+
+      <!-- Min payment -->
+      <div class="form" ng-if="job.paymentType != 'Confidential' && job.paymentType != 'Negotiable' && job.paymentType != null">
+        <h5>Payment (NGN) <span style="color: #EF6C00;">*</span></h5>
+        <input type="number" name="payment" placeholder="Enter amount in NGN" ng-model="job.payment" required>
+         <p ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.payment.$invalid" >Enter a valid amount.</p>
+         <span ng-cloak class="ng-cloak" ng-hide="submitted && jobForm.payment.$invalid" >{{job.payment | currency:"":0}} NGN</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="six columns">
+    <div class="submit-page">
+
+      <!-- Company Details -->
+      <div class="divider"><h3>Company Details</h3></div>
+
+      <!-- Company Name -->
+      <div class="form">
+        <h5>Company Name <span style="color: #EF6C00;">*</span></h5>
+        <input type="text" placeholder="Enter the name of the company" ng-click="clear()" name="companyName" ng-model="job.comName" required>
+         <p ng-cloak class="ng-cloak help-block" ng-show="submitted && jobForm.companyName.$error.required" >Company name is required.</p>
+      </div>
+
+      <!-- Website -->
+      <div class="form">
+        <h5>Website <span style="color: #8BC34A;">(optional)</span></h5>
+        <input type="text" name="website" placeholder="e.g. http://www.bossworker.com" ng-model="job.comWebsite" ng-pattern="/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/">
+        <p ng-cloak class="ng-cloak help-block" ng-show="jobForm.website.$error.pattern" >Enter a valid website</p>
+      </div>
+
+      <!-- Teagline -->
+      <div class="form">
+        <h5>Email <span style="color: #8BC34A;">(optional)</span></h5>
+        <input type="email" name="email" placeholder="Enter company email" ng-model="job.comEmail">
+        <p ng-cloak class="ng-cloak help-block" ng-show="jobForm.email.$invalid" >Enter a valid email.</p>
+      </div>
+
+       <!-- Teagline -->
+      <div class="form">
+        <h5>Address <span style="color: #8BC34A;">(optional)</span></h5>
+        <input type="text" placeholder="Enter company address" ng-model="job.comAddress">
+      </div>
+
+       <!-- Phone -->
+      <div class="form">
+        <h5>Phone Number <span style="color: #8BC34A;">(optional)</span></h5>
+        <input class="search-field"  type="text" name="phone" placeholder="e.g. 080XXXXXXX or +23470XXXXXXX" ng-click="clear()" ng-pattern="/[7-9][0-9]{9}$/" ng-model="job.comPhone" />
+        <p ng-cloak class="ng-cloak help-block" ng-show="jobForm.phone.$error.pattern" >Enter a valid phone number</p>
+      </div>
+
+       <!-- Logo -->
+      <div class="form">
+        <h5>Logo <span style="color: #8BC34A;">(optional)</span></h5>
+        <label class="upload-btn">
+            <input type="file" ngf-select ng-model="job.file" name="file"  
+             accept="image/*" ngf-max-size="2MB"
+             ngf-model-invalid="errorFile" ngf-resize="{width: 100, height: 100, quality: 0.5, centerCrop: true, restoreExif: false}">
+            <i class="fa fa-upload"></i> Browse
+        </label>
+        <span ng-cloak class="ng-cloak fake-input">{{job.file.$ngfName || "No file selected" }}</span>
+      </div>
+       <i ng-cloak class="ng-cloak button" ng-show="jobForm.file.$error.maxSize">File too large 
+       {{errorFile.size / 1000000|number:1}}MB: max 2MB</i>
+       <img ng-show="jobForm.file.$valid" ngf-thumbnail="job.file" class="thumb"> 
+       <a href="" ng-cloak class="ng-cloak fake-input button" ng-click="job.file = null" ng-show="job.file">Remove</a>
+
+
+    </div>
+  </div>
+
+  <div class="sixteen columns">
+    <div class="submit-page">
+
+     <div class="divider margin-top-0"></div>
+
+      <button type="Submit" ng-cloak class="button ng-cloak  big margin-top-5">{{login}}  <i class="fa fa-arrow-circle-right"></i>
+      </button>
+      <span ng-cloak class="error ng-cloak" ng-show="formError">{{formError}}</span>
+      <span ng-cloak class="success ng-cloak" ng-show="formSuccess">{{formSuccess}}</span>
+
+     </div>
+   </div>
+
+</form>
+
+</div>
+<% include footer %>

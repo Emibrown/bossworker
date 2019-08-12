@@ -1,0 +1,105 @@
+<% include header %>
+
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Sign Up</h2>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+
+<!-- Container -->
+<div class="container"  ng-controller="registerCtrl">
+
+  <div class="my-account">
+
+    <ul class="tabs-nav">
+      <li class=""><a href="/user/login">Sign In</a></li>
+      <li class="active"><a href="/user/signup">Sign Up</a></li>
+    </ul>
+
+    <div class="tabs-container">
+      <!-- Register -->
+      <div class="tab-content">
+
+        <form class="register" name="userForm" ng-submit="onSubmit(userForm.$valid)" novalidate>
+          
+        <p class="form-row form-row-wide">
+          <label for="username2">First name:
+            <i class="ln ln-icon-Male"></i>
+            <input type="text" ng-click="clear()" name="firstname" class="input-text" ng-model="credentials.firstname" required/>
+          </label>
+          <span class="error" ng-cloak class="ng-cloak" ng-show=" userForm.firstname.$invalid && !userForm.firstname.$pristine">Please enter your first name</span>
+        </p>
+
+        <p class="form-row form-row-wide">
+          <label for="username2">Last name:
+            <i class="ln ln-icon-Male"></i>
+            <input type="text" ng-click="clear()" name="lastname" class="input-text" ng-model="credentials.lastname" required/>
+          </label>
+          <span class="error" ng-cloak class="ng-cloak" ng-show=" userForm.lastname.$invalid && !userForm.lastname.$pristine">Please enter your Last name</span>
+        </p>
+          
+        <p class="form-row form-row-wide">
+          <label for="email2">Email:
+            <i class="ln ln-icon-Mail"></i>
+            <input type="email" name="emailphone" ng-model="credentials.emailphone" ng-click="clear()" required >
+          </label>
+          <span class="error"  ng-cloak class="ng-cloak" ng-if="userForm.emailphone.$invalid && !userForm.emailphone.$pristine">Enter a valid email address !</span>
+        </p>
+
+        <p class="form-row form-row-wide">
+          <label for="email2">Phone Number:
+            <i class="ln  ln-icon-Phone-2"></i>
+            <input type="text" name="phone" ng-model="credentials.phone" ng-pattern="/[7-9][0-9]{9}$/" ng-click="clear()" required >
+          </label>
+          <span class="error"  ng-cloak class="ng-cloak" ng-if="userForm.phone.$error.required && !userForm.phone.$pristine">Phone number is required !</span>
+          <span ng-cloak class="ng-cloak error" ng-show="userForm.phone.$error.pattern" >Enter a valid phone number !</span>
+        </p>
+
+        <p class="form-row form-row-wide">
+          <label for="password1">Password (8 or more characters):
+            <i class="ln ln-icon-Lock-2"></i>
+            <input class="input-text" ng-click="clear()" name="password1" type="password" ng-minlength="8" ng-model="credentials.password1" required />
+          </label>
+          <span class="error" ng-cloak class="ng-cloak" ng-show="userForm.password1.$error.minlength">8 characters or more</span>
+          <span class="error"  ng-cloak class="ng-cloak" ng-if="userForm.password1.$error.required && !userForm.password1.$pristine">Please enter your password</span>
+        </p>
+
+        <p class="form-row form-row-wide">
+          <label for="password2">Repeat Password:
+            <i class="ln ln-icon-Lock-2"></i>
+            <input class="input-text" ng-click="clear()" name="password2" type="password" ng-model="credentials.password2" ng-pattern="credentials.password1" required/>
+          </label>
+           <span class="error"  ng-cloak class="ng-cloak" ng-if="userForm.password2.$error.pattern">Password miss-match!</span>
+        </p>
+
+        <p class="form-row">
+          <button type="submit" ng-cloak class="button fullw border fw margin-top-10 ng-cloak" ng-disabled="userForm.$invalid" ng-cloak class="ng-cloak">{{register}}</button>
+          <span class="error"  ng-cloak class="ng-cloak" ng-if="formError">{{formError}}</span>
+        </p>
+
+        <br>
+        <p class="lost_password">
+          By registering you accept our <a href="">Terms of Use</a> and <a href="">Privacy</a> and agree that we and our partners may contact you with relevant offers and services.
+        </p>
+        <br>
+        <p class="lost_password">
+          Already have an account? <a href="/user/login"> Log In</a>
+        </p>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include footer %>

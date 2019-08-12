@@ -1,0 +1,131 @@
+<% include header %>
+  <!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+  <div class="container">
+
+    <div class="sixteen columns">
+      <h2>Manage Jobs</h2>
+      </nav>
+    </div>
+
+    <div class="six columns">
+      <a href="/manage/admin/add-job" class="button">Add Job</a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Content
+================================================== -->
+<div class="container" ng-controller="adminManagejobCtrl">
+  
+  <!-- Table -->
+  <div class="sixteen columns">
+
+     <form ng-init="adminSearch = '<%= search %>';" ng-submit="adminSearchjob(adminSearch)" class="list-search">
+      <button type="submit" ><i class="fa fa-search"></i></button>
+      <input type="text" ng-model="adminSearch" placeholder="job title, keywords or company name" value=""/>
+      <div class="clearfix"></div>
+    </form>
+   
+
+    <table class="manage-table responsive-table">
+
+      <tr>
+        <th><i class="fa fa-file-text"></i> Title</th>
+        <th><i class="fa fa-check-square-o"></i> Status</th>
+        <th><i class="fa fa-calendar"></i> Date Craeted</th>
+        <th><i class="fa fa-calendar"></i> Date Expires</th>
+        <th><i class="fa fa-user"></i> Applications</th>
+        <th></th>
+      </tr>
+          
+      <!-- Items -->
+<%for (var job in jobs){%>
+     <tr>
+        <td class="title"><a href="s"><%= jobs[job].jobTitle %></a></td>
+        <td class="centered"><%= jobs[job].status %></td>
+        <td><%= moment(jobs[job].createdOn).format('MMMM Do YYYY') %></td>
+<% if (jobs[job].expiresOn) {%>
+        <td><%= moment(jobs[job].expiresOn).format('MMMM Do YYYY') %></td>
+<% }else { %>
+        <td>-</td>
+<% }%>
+        <td class="centered">
+         <% if(jobs[job].accountType != 'admin'){%>
+          <a href="" class="button"> <%= jobs[job].applicant.length %> </a></td>
+          <% }%>
+        <td class="action">
+        <a href="/manage/admin/edit-job/<%= jobs[job].jobId %>"><i class="fa fa-pencil"></i> Edit</a>
+    <% if(jobs[job].accountType == 'admin'){%>
+          <a href="" ng-click="removejob('<%= jobs[job]._id %>','<%= jobs[job].jobTitle %>')" class="delete"><i class="fa fa-remove"></i> Delete</a>
+    <% }%>
+        </td>
+      </tr> 
+<%}%>
+      
+
+    </table>
+
+    <br>
+     <% if (pages > 0) { %>
+         <!-- Pagination -->
+      <div class="pagination-container">
+        <nav class="pagination">
+          <ul class="padding">
+  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+      <% if (i !== 1) { %>
+            <li><a href="">...</a></li>
+      <% } %>
+
+      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+          <% if (i == current) { %>
+              <li><a href="" class="current-page"><%= i %></a></li>
+          <% } else { %>
+             <% if (i == 1) { %>
+                  <li><a href="/manage/admin/manage-jobs?search=<%= search %>"><%= i %></a></li>
+              <% } else { %>
+                  <li><a href="/manage/admin/manage-jobs?page=<%= i %>&search=<%= search %>"><%= i %></a></li>
+              <% } %>
+          <% } %>
+          <% if (i == Number(current) + 4 && i < pages) { %>
+             <li><a href="">...</a></li>
+          <% } %>
+      <% } %>
+          </ul>
+        </nav>
+
+        <nav class="pagination-next-prev">
+          <ul class="padding">
+              <% if (current == 1) { %>
+                  <li><a href="" class="prev">first</a></li>
+              <% } else { %>
+                  <li><a href="/manage/admin/manage-jobs?search=<%= search %>" class="prev">first</a></li>
+              <% } %>
+              <% if (current == pages) { %>
+                  <li><a href="" class="next">last</a></li>
+              <% } else { %>
+                  <li><a href="/manage/admin/manage-jobs?page=<%= pages %>&search=<%= search %>" class="next">last</a></li>
+              <% } %>
+          
+          </ul>
+        </nav>
+      </div>
+<% } %>
+
+  </div>
+
+
+
+<script type="text/ng-template" id="removejob">
+    <h1>{{title}}</h1>
+    <p>Deleting this job you will lost all data relateted to it.</p>
+    <p>Are you sure you want to remove this job?</p>
+    <a href="" ng-click="removejob()" ng-cloak  class="button ng-cloak">{{remove}}</a>
+</script> 
+
+</div>
+
+<% include footer %>

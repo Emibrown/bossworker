@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="script.js">
+        
+    
+    
+    </script>
+</head>
+<style>
+    body{
+        background:rgb(13, 53, 120);
+    }
+    .white{
+        width:50%;
+        height:400px;
+        margin:100px auto;
+        border-radius: 8px;
+        background:white;
+    }
+    .nav{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+        color:white;
+    }
+    .nav a{
+        color:white;
+    }
+    @media screen and (max-width:600px) {
+        .white{
+            width:80%;
+            background:pink;
+        }
+        .nav{
+            display:flex;
+            flex-direction:column;
+            justify-content:left; 
+        }
+    }
+   
+</style>
+<body>
+    <div class="nav">
+        <div class="first">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+        </div>
+        <div class="second">
+            <a href="#">contact</a>
+            <a href="#">packages</a>
+        </div>
+    </div>
+    <div class="white">
+        <button type= "button"  onclick="firstfunction()">click me</button>
+        <p id="fresh">just aya</p>
+    </div>
+    
+</body>
+</html>

@@ -98,7 +98,7 @@
     <h2><a href="">Forgot Password</a></h2>
     <form name="forgetForm" ng-submit="reset(forgetForm.$valid)" equired novalidate>
       <div class="form">
-        <h5>Email Address</h5>
+        <h5>Email <b>Address</b></h5>
          <input type="email" name="email" ng-model="credentials.email" ng-click="clear()" required >
         <span  ng-cloak class="ng-cloak error" ng-if="submitted && forgetForm.email.$invalid">Enter a valid email</span>
       </div>
